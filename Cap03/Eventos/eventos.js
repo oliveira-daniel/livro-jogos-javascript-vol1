@@ -37,6 +37,7 @@ const keyboard = {
 
   }
 
+  // ### Desafio! ###
   // Crie agora o método que detecta quando o usuário
   // solta a tecla pressionada.
 
