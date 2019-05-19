@@ -43,6 +43,8 @@ const keyboard = {
 }
 
 window.addEventListener("load", () => {
+
   // Ativar os eventos de teclado
   keyboard.start();
+
 });
