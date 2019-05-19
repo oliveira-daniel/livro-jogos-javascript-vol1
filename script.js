@@ -20,7 +20,13 @@ const keyboard = {
       // Verificar se foi uma tecla válida
       if (keyboard.validKeys[k]) {
         
-        console.log("Tecla válida", k);
+        // Mostrar no console a tecla for válida
+        console.log("Tecla válida", k, keyboard.validKeys[k]);
+        
+      } else {
+        
+        // Mostrar no console o erro de tecla for inválida
+        console.error("Tecla inválida", k);
         
       }
       
@@ -33,3 +39,5 @@ const keyboard = {
 
 
 keyboard.start();
+
+console.log("Testando eventos...");
