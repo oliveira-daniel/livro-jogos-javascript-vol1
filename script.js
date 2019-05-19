@@ -9,9 +9,7 @@ const keyboard = {
   },
   
   start: function () {
-    
-    console.log("Aguardando comandos de teclados...");
-    
+       
     addEventListener('keydown', event => {
       
       // Armazenar a tecla pressionada
@@ -36,8 +34,7 @@ const keyboard = {
   
 }
 
-
-
-keyboard.start();
-
-console.log("Testando eventos...");
+window.addEventListener("load", () => {
+  // Ativar os eventos de teclado
+  keyboard.start();
+});
