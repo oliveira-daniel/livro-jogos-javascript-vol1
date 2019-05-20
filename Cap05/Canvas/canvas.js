@@ -69,8 +69,10 @@
 
     // TODO: Melhorar esta parte...
 
-   var img = document.createElement("img");
-   img.src = "assets/enjoy-learn.png";
-   context.drawImage(img, canvas.width/2-55, 235, 110, 110);
+    var img = new Image();
+    img.src = "https://cdn.glitch.com/ad7c6b5e-e383-4f8f-8570-9b1c06487137%2Fenjoy-learn.png?1558314934967";
+    img.onload = () => {
+      context.drawImage(img, canvas.width/2-55, 235, 110, 110);
+    };
 
  // ---
