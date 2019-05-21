@@ -12,25 +12,42 @@
 
  // --- Animando objetos ---
 
- var posX = 0;
+ // Armazenar a posição inicial do objeto
+ var posX = 0,
+     posY = canvas.height/2-55;
 
+ // Método responsável pela animação
  function animar() {
+   // Apaga o que está dentro do canvas
    context.clearRect(0, 0, canvas.width, canvas.height);
 
-   context.drawImage(img, posX, 0, 110, 110);
+   // Insere a imagem no canvas
+   context.drawImage(img, posX, posY, 110, 110);
 
-   if (posX > canvas.width)
+   // Ajusta a posição:
+   // Enquanto não chegar ao final da tela, executar a animação.
+   // Voltar ao início caso contrário.
+   if (posX > canvas.width - 110){
       posX = 0;
-   else {
+   } else {
       posX += 1.5;
    }
 
+   // Executar os quadros de animação
    requestAnimationFrame(animar);
  }
 
+ // Importar a imagem para a cena do canvas
+
+ // Criar um objeto de imagem
  var img = new Image();
+
+ // Definir a origem dessa nova imagem
  img.src = "assets/enjoy-learn.png";
+
+ // Executar a animação após carregá-la
  img.onload = () => {
+   // Chamar o método que executará a animação
    animar();
  };
 
