@@ -6,9 +6,9 @@ let currentLevel;
 const mapLevel = `000000
 000110
 000000
-000000
+010000
 002000
-000200`;
+002200`;
 
 var imgW = 64,
     imgH = 64;
@@ -38,11 +38,11 @@ function draw() {
       }
 
       imgBg.onload = () => {
-        context.drawImage(imgBg, row * imgW, col * imgH, imgW, imgH);
+        context.drawImage(imgBg, col * imgH, row * imgW, imgW, imgH);
       }
 
       tile.onload = () => {
-        context.drawImage(tile, row * imgW, col * imgH, imgW, imgH);
+        context.drawImage(tile, col * imgH, row * imgW, imgW, imgH);
       }
 
     }
