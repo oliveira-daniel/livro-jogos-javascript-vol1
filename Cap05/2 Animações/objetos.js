@@ -22,7 +22,7 @@ function animar() {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   // Insere a imagem no canvas
-  context.drawImage(img, posX, posY, 110, 110);
+  context.drawImage(img, posX, posY, 87, 105.9);
 
   // Ajusta a posição:
   // Enquanto não chegar ao final da tela, executar a animação.
@@ -43,7 +43,7 @@ function animar() {
 var img = new Image();
 
 // Definir a origem dessa nova imagem
-img.src = "assets/enjoy-learn.png";
+img.src = "assets/ice-cream-van.png";
 
 // Executar a animação após carregá-la
 img.onload = () => {
