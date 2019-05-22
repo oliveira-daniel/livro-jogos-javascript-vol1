@@ -69,8 +69,15 @@
 
     // TODO: Melhorar esta parte...
 
+    // Importar a imagem para a cena do canvas
+
+    // Criar um objeto de imagem
     var img = new Image();
+
+    // Definir a origem dessa nova imagem
     img.src = "assets/enjoy-learn.png";
+
+    // Inserir a imagem no canvas após carregá-la
     img.onload = () => {
       context.drawImage(img, canvas.width/2-55, 235, 110, 110);
     };

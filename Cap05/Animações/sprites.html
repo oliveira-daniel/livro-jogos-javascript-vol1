@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Animando Sprites com canvas e JavaScript</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        text-align: center;
+      }
+      canvas {
+        border: 2px solid #4d4d63;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Animando com Sprites!</h1>
+
+    <canvas id="game-canvas" width="350" height="350"></canvas>
+
+    <div class="opts">
+      <label for="loop">Executar em loop?</label>
+      <input type="checkbox" id="loop">
+      <label for="frames">Frames</label>
+      <input type="number" value="3" id="frames">
+    </div>
+
+    <!-- importar o arquivo javascript contendo as instruções -->
+    <script src="sprites.js" defer></script>
+
+  </body>
+</html>
