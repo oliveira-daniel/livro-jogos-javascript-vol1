@@ -27,7 +27,7 @@
    // Ajusta a posição:
    // Enquanto não chegar ao final da tela, executar a animação.
    // Voltar ao início caso contrário.
-   if (posX > canvas.width - 110){
+   if (posX > canvas.width - 110) {
       posX = 0;
    } else {
       posX += 1.5;
