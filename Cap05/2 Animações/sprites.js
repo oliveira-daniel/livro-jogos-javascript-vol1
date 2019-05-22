@@ -22,8 +22,8 @@ var img = new Image(),
   sy = 0,
   sw = 192,
   sh = 193,
-  dx = canvas.width  / 2 - 192/2,
-  dy = canvas.height / 2 - 193/2,
+  dx = canvas.width / 2 - 192 / 2,
+  dy = canvas.height / 2 - 193 / 2,
   dw = 192,
   dh = 193;
 
@@ -41,7 +41,7 @@ function animar() {
   requestAnimationFrame(animar);
 
   var loop = loopCheckBox.checked,
-      ticksFrame = parseInt(framesText.value);
+    ticksFrame = parseInt(framesText.value);
 
   // --- Update
   tickCount += 1;

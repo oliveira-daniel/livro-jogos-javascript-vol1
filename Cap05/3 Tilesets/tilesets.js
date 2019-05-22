@@ -11,9 +11,9 @@ const context = canvas.getContext("2d");
 
 // Criar um objeto de imagem
 var img = new Image(),
-    imgW = 64,
-    imgH = 64,
-    qtdTiles = 6;
+  imgW = 64,
+  imgH = 64,
+  qtdTiles = 6;
 
 // Definir a origem dessa nova imagem
 img.src = "assets/bg.png";
