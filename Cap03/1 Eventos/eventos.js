@@ -1,13 +1,13 @@
 // Construção do objeto que fará o controle
-// das teclas pressionadas.
+// das teclas de teclado pressionadas.
 const keyboard = {
 
   // Propriedade contendo o Objeto de teclas válidas.
   validKeys: {
-    ' ': 'disparar' , // espaço
-    'w': 'cima'     ,
-    'a': 'esquerda' ,
-    's': 'baixo'    ,
+    ' ': 'disparar', // espaço
+    'w': 'cima',
+    'a': 'esquerda',
+    's': 'baixo',
     'd': 'direita'
   },
 
@@ -43,6 +43,7 @@ const keyboard = {
 
 }
 
+// Objeto que irá controlar os eventos do mouse
 const mouse = {
 
   buttons: {
@@ -52,10 +53,10 @@ const mouse = {
 
   start: () => {
 
-    addEventListener("click", mouseEvent =>{
+    addEventListener("click", mouseEvent => {
 
       let btn = mouseEvent.button,
-          posMessage;
+        posMessage;
 
       // Verificar o botão do mouse pressionado
       if (mouse.buttons[btn]) {
@@ -71,10 +72,8 @@ const mouse = {
         console.error("Botão central sem ação programada!");
 
       }
-
     });
   }
-
 }
 
 window.addEventListener("load", () => {
@@ -82,7 +81,7 @@ window.addEventListener("load", () => {
   // Ativar os eventos de teclado
   keyboard.start();
 
-  // Ativar os eventos de mouse
+  // Ativar os eventos do mouse
   mouse.start();
 
 });
