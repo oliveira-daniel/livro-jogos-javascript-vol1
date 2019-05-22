@@ -12,13 +12,13 @@ const keyboard = {
   },
 
   // Método para iniciar a escuta por eventos de teclado.
-  start: function () {
+  start: () => {
 
     // Adicionar a escuta pela evento de tecla pressionada.
-    addEventListener('keydown', event => {
+    addEventListener('keydown', keyEvent => {
 
       // Armazenar a tecla pressionada.
-      var k = event.key;
+      var k = keyEvent.key;
 
       // Verificar se foi uma tecla válida.
       if (keyboard.validKeys[k]) {
@@ -43,9 +43,35 @@ const keyboard = {
 
 }
 
+const mouse = {
+
+  start: () => {
+    addEventListener("click", mouseEvent =>{
+
+      let btnMessage, posMessage;
+
+      // Verificar o botão do mouse pressionado
+      if (mouseEvent.button == 0) {
+        btnMessage = "Botão esquerdo pressionado!";
+      } else if (mouseEvent.button == 2) {
+        btnMessage = "Botão direito pressionado!";
+      }
+
+      // Informar a posição da tela onde o mouse estava quando foi acionado
+      posMessage = `Posição x=${mouseEvent.x}, y=${mouseEvent.y}`;
+
+      console.log(btnMessage, posMessage);
+    });
+  }
+
+}
+
 window.addEventListener("load", () => {
 
   // Ativar os eventos de teclado
   keyboard.start();
+
+  // Ativar os eventos de mouse
+  mouse.start();
 
 });
