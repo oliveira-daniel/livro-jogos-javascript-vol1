@@ -1,6 +1,11 @@
 
 // TODO: inserir comentário de cabeçalho
 
+// Elementos de opções
+const loopCheckBox = document.querySelector("#loop");
+
+// Quantidade de frames por tempo de execução
+const framesText = document.querySelector("#frames");
 
 // Selecionando o elemento canvas
 const canvas = document.querySelector("#game-canvas");
@@ -8,23 +13,17 @@ const canvas = document.querySelector("#game-canvas");
 // Obtain a context object
 const context = canvas.getContext("2d");
 
-// explosion_03_strip13.png
-
-// Importar a imagem para a cena do canvas
-
 // Criar um objeto de imagem
 var img = new Image(),
   frameIndex = 0,
   frames = 13,
-  tickCount = 0
-  ticksFrame = 3,
-  loop = false;
+  tickCount = 0,
   sx = 192,
   sy = 0,
   sw = 192,
   sh = 193,
   dx = canvas.width  / 2 - 192/2,
-  dy = canvas.height / 2 - 192/2,
+  dy = canvas.height / 2 - 193/2,
   dw = 192,
   dh = 193;
 
@@ -40,6 +39,9 @@ img.onload = () => {
 function animar() {
 
   requestAnimationFrame(animar);
+
+  var loop = loopCheckBox.checked,
+      ticksFrame = parseInt(framesText.value);
 
   // --- Update
   tickCount += 1;
