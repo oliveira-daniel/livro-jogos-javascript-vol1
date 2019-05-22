@@ -45,22 +45,33 @@ const keyboard = {
 
 const mouse = {
 
+  buttons: {
+    "0": "Disparando torpedos!",
+    "2": "Levantando escudos!"
+  },
+
   start: () => {
+
     addEventListener("click", mouseEvent =>{
 
-      let btnMessage, posMessage;
+      let btn = mouseEvent.button,
+          posMessage;
 
       // Verificar o botão do mouse pressionado
-      if (mouseEvent.button == 0) {
-        btnMessage = "Botão esquerdo pressionado!";
-      } else if (mouseEvent.button == 2) {
-        btnMessage = "Botão direito pressionado!";
+      if (mouse.buttons[btn]) {
+
+        // Informar a posição da tela onde o mouse estava quando foi acionado
+        posMessage = `Posição x=${mouseEvent.x}, y=${mouseEvent.y}`;
+
+        console.log(mouse.buttons[btn], posMessage);
+
+      } else {
+
+        // Mostrar no console o erro de botão sem ação.
+        console.error("Botão central sem ação programada!");
+
       }
 
-      // Informar a posição da tela onde o mouse estava quando foi acionado
-      posMessage = `Posição x=${mouseEvent.x}, y=${mouseEvent.y}`;
-
-      console.log(btnMessage, posMessage);
     });
   }
 
