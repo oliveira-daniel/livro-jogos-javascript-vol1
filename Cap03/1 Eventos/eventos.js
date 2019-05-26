@@ -47,8 +47,8 @@ const keyboard = {
 const mouse = {
 
   buttons: {
-    "0": "Disparando torpedos!",
-    "2": "Levantando escudos!"
+    0: "Disparando torpedos!",
+    2: "Levantando escudos!"
   },
 
   start: () => {
