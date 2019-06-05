@@ -13,8 +13,8 @@ const context = canvas.getContext("2d");
 // --- Animando objetos ---
 
 // Armazenar a posição inicial do objeto
-var posX = 0,
-  posY = canvas.height / 2 - 55;
+var posX = -110,
+  posY = Math.floor((Math.random() * (canvas.height - 128)));
 
 // Método responsável pela animação
 function animar() {
@@ -22,15 +22,16 @@ function animar() {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   // Insere a imagem no canvas
-  context.drawImage(img, posX, posY, 87, 105.9);
+  context.drawImage(img, posX, posY, 128, 128);
 
   // Ajusta a posição:
   // Enquanto não chegar ao final da tela, executar a animação.
   // Voltar ao início caso contrário.
-  if (posX > canvas.width - 110) {
-    posX = 0;
+  if (posX > canvas.width) {
+    posX = -110;
+    posY = Math.floor((Math.random() * (canvas.height - 128)));
   } else {
-    posX += 1.5;
+    posX += 2;
   }
 
   // Executar os quadros de animação
@@ -43,7 +44,7 @@ function animar() {
 var img = new Image();
 
 // Definir a origem dessa nova imagem
-img.src = "assets/ice-cream-van.png";
+img.src = "assets/AEG_CIV_default.png";
 
 // Executar a animação após carregá-la
 img.onload = () => {

@@ -2,7 +2,7 @@
 // Selecionando o elemento canvas
 let canvas = document.querySelector("#game-canvas");
 
-// Obtain a context object
+// Obter o contexto 2d
 let context = canvas.getContext("2d");
 context.imageSmoothingEnabled = false;
 
@@ -21,8 +21,6 @@ class Sprite2d extends GameObject {
     this.frameIndex = 0;
     this.tickCount = 0;
 
-    // this.estados = estados;
-
     for (let key in estados) {
       estados[key].img.src = estados[key].imgSRC;
     }
@@ -35,17 +33,19 @@ class Sprite2d extends GameObject {
     this.tickCount += 1;
     if (this.tickCount > this.estadoAtual.ticksFrame) {
       this.tickCount = 0;
-      // Calcular os frames por segundo da explosão
+      // Calcular os frames por segundo
       if (this.frameIndex < this.estadoAtual.frames - 1) {
-        // Go to the next frame
+        // Avançar ao próximo frame
         this.frameIndex += 1;
       } else if (this.estadoAtual.loop) {
+        // Verifica se deve executar a animação em loop
         this.frameIndex = 0;
       }
     }
 
-    this.ctx.drawImage(this.estadoAtual.img, this.frameIndex * this.estadoAtual.sw, 0,
-      this.estadoAtual.sw, this.estadoAtual.sh, this.estadoAtual.dx, this.estadoAtual.dy, this.estadoAtual.dw, this.estadoAtual.dh);
+    this.ctx.drawImage(this.estadoAtual.img, this.frameIndex * this.estadoAtual.sw,
+      0, this.estadoAtual.sw, this.estadoAtual.sh, this.estadoAtual.dx,
+      this.estadoAtual.dy, this.estadoAtual.dw, this.estadoAtual.dh);
   }
 
 }
@@ -123,7 +123,7 @@ window.onload = () => {
     }
   }
 
-  let caveira = new Sprite2d(context, estados);
+  let caveira = new Sprite2d (context, estados);
   caveira.estadoAtual = estados.andando;
   caveira.update = () => {
 
