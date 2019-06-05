@@ -127,14 +127,14 @@ window.onload = () => {
   caveira._defs = estados.andando;
 
   let atacarBtn = document.querySelector("#atacar");
-  atacarBtn.addEventListener("click", (e) => {
+  atacarBtn.addEventListener("click", () => {
     caveira._defs = estados.atacando;
     caveira.frameIndex = 0
   });
 
   let andarBtn = document.querySelector("#andar");
   andarBtn.checked = true;
-  andarBtn.addEventListener("click", (e) => {
+  andarBtn.addEventListener("click", () => {
     caveira._defs = estados.andando;
     caveira.frameIndex = 0
   });
