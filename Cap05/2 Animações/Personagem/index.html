@@ -17,6 +17,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        margin: 0;
       }
       h1 {
         width: 450px;
@@ -32,9 +33,16 @@
   </head>
   <body>
 
-    <h1>Animando com Sprites...</h1>
+    <h1>Interagindo com Personagens...</h1>
 
     <canvas id="game-canvas" width="350" height="350"></canvas>
+
+    <div class="comandos">
+      <label for="atacar">Atacar</label>
+      <input id="atacar" type="radio" name="comando" value="atacando">
+      <label for="andar">Andar</label>
+      <input id="andar" type="radio" name="comando" value="andando" checked=checked>
+    </div>
 
     <!-- importar o arquivo javascript contendo as instruções -->
     <script src="spritesOO.js" defer></script>
