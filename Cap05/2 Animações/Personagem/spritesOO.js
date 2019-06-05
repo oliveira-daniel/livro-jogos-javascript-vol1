@@ -6,20 +6,6 @@ let canvas = document.querySelector("#game-canvas");
 let context = canvas.getContext("2d");
 context.imageSmoothingEnabled = false;
 
-let imgArray = [
-  "../assets/Skeleton Walk.png",
-  "../assets/Skeleton Attack.png",
-];
-
-let imgWx = [
-  22, 43
-];
-
-let imgWy = [
-  33, 37
-];
-
-
 class GameObject {
   constructor () {
     Game.addGameObj(this);
@@ -35,9 +21,11 @@ class Sprite2d extends GameObject {
     this.frameIndex = 0;
     this.tickCount = 0;
 
-    this.estados = estados;
+    // this.estados = estados;
 
-    // this._defs = defs;
+    for (let key in estados) {
+      estados[key].img.src = estados[key].imgSRC;
+    }
   }
 
   draw () {
@@ -121,7 +109,7 @@ window.onload = () => {
       img: new Image(),
     },
     atacando: {
-      frames: 13,
+      frames: 18,
       ticksFrame: 4,
       sw: 43,
       sh: 37,
@@ -135,10 +123,6 @@ window.onload = () => {
     }
   }
 
-  // let imgCaveira = new Image();
-  estados.atacando.img.src = estados.atacando.imgSRC;
-  estados.andando.img.src  = estados.andando.imgSRC;
-
   let caveira = new Sprite2d(context, estados);
   caveira._defs = estados.andando;
 
@@ -149,6 +133,7 @@ window.onload = () => {
   });
 
   let andarBtn = document.querySelector("#andar");
+  andarBtn.checked = true;
   andarBtn.addEventListener("click", (e) => {
     caveira._defs = estados.andando;
     caveira.frameIndex = 0
