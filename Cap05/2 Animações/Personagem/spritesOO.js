@@ -33,19 +33,19 @@ class Sprite2d extends GameObject {
     this.update();
 
     this.tickCount += 1;
-    if (this.tickCount > this._defs.ticksFrame) {
+    if (this.tickCount > this.estadoAtual.ticksFrame) {
       this.tickCount = 0;
       // Calcular os frames por segundo da explosão
-      if (this.frameIndex < this._defs.frames - 1) {
+      if (this.frameIndex < this.estadoAtual.frames - 1) {
         // Go to the next frame
         this.frameIndex += 1;
-      } else if (this._defs.loop) {
+      } else if (this.estadoAtual.loop) {
         this.frameIndex = 0;
       }
     }
 
-    this.ctx.drawImage(this._defs.img, this.frameIndex * this._defs.sw, 0,
-      this._defs.sw, this._defs.sh, this._defs.dx, this._defs.dy, this._defs.dw, this._defs.dh);
+    this.ctx.drawImage(this.estadoAtual.img, this.frameIndex * this.estadoAtual.sw, 0,
+      this.estadoAtual.sw, this.estadoAtual.sh, this.estadoAtual.dx, this.estadoAtual.dy, this.estadoAtual.dw, this.estadoAtual.dh);
   }
 
 }
@@ -97,7 +97,7 @@ window.onload = () => {
   let estados = {
     andando: {
       frames: 13,
-      ticksFrame: 4,
+      ticksFrame: 3,
       sw: 22,
       sh: 33,
       dx: canvas.width  / 2 - 22 / 2 * 4,
@@ -124,24 +124,25 @@ window.onload = () => {
   }
 
   let caveira = new Sprite2d(context, estados);
-  caveira._defs = estados.andando;
-
-  let atacarBtn = document.querySelector("#atacar");
-  atacarBtn.addEventListener("click", () => {
-    caveira._defs = estados.atacando;
-    caveira.frameIndex = 0
-  });
-
-  let andarBtn = document.querySelector("#andar");
-  andarBtn.checked = true;
-  andarBtn.addEventListener("click", () => {
-    caveira._defs = estados.andando;
-    caveira.frameIndex = 0
-  });
-
+  caveira.estadoAtual = estados.andando;
   caveira.update = () => {
 
   }
 
   game.start();
+
+  let atacarBtn = document.querySelector("#atacar");
+  atacarBtn.addEventListener("click", () => {
+    caveira.estadoAtual = estados.atacando;
+    caveira.frameIndex = 0;
+    caveira.tickCount = 0;
+  });
+
+  let andarBtn = document.querySelector("#andar");
+  andarBtn.addEventListener("click", () => {
+    caveira.estadoAtual = estados.andando;
+    caveira.frameIndex = 0;
+    caveira.tickCount = 0;
+  });
+  andarBtn.checked = true;
 }
