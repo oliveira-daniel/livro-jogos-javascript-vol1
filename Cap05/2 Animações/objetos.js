@@ -13,8 +13,7 @@ const context = canvas.getContext("2d");
 // --- Animando objetos ---
 
 // Armazenar a posição inicial do objeto
-var posX = -110,
-  posY = Math.floor((Math.random() * (canvas.height - 128)));
+var posX = posY = canvas.width;
 
 // Método responsável pela animação
 function animar() {
