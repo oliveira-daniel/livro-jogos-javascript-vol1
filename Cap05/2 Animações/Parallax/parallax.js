@@ -35,12 +35,56 @@ class Game {
 
 }
 
-class BackgroundParallax {
+class GameObject {
+  constructor () {
+    Game.addGameObj(this);
+  }
+}
+
+class Sprite2d extends GameObject {
+
+  constructor (ctx2d, estados) {
+    super();
+    this.ctx = ctx2d;
+    this.canvas = ctx2d.canvas;
+    this.frameIndex = 0;
+    this.tickCount = 0;
+
+    for (let key in estados) {
+      estados[key].img.src = estados[key].imgSRC;
+    }
+  }
+
+  draw () {
+    // --- Update
+    this.update();
+
+    this.tickCount += 1;
+    if (this.tickCount > this.estadoAtual.ticksFrame) {
+      this.tickCount = 0;
+      // Calcular os frames por segundo
+      if (this.frameIndex < this.estadoAtual.frames - 1) {
+        // Avançar ao próximo frame
+        this.frameIndex += 1;
+      } else if (this.estadoAtual.loop) {
+        // Verifica se deve executar a animação em loop
+        this.frameIndex = 0;
+      }
+    }
+
+    this.ctx.drawImage(this.estadoAtual.img, this.frameIndex * this.estadoAtual.sw,
+      0, this.estadoAtual.sw, this.estadoAtual.sh, this.estadoAtual.dx,
+      this.estadoAtual.dy, this.estadoAtual.dw, this.estadoAtual.dh);
+  }
+
+}
+
+class BackgroundParallax extends GameObject {
 
   constructor (ctx2d) {
+    super();
     this.layers = new Array();
     this.ctx = ctx2d;
-    Game.addGameObj(this);
   }
 
   addLayer(newLayer, delta, w, h, x, y) {
@@ -86,7 +130,27 @@ window.onload = () => {
   bg.addLayer("../assets/bg/plx-3.png", .7, w, h, 0, 0);
   bg.addLayer("../assets/bg/plx-4.png", .9, w, h, 0, 0);
   bg.addLayer("../assets/bg/plx-5.png", 1.2, w, h, 0, 0);
-  bg.addLayer("../assets/bg/bottom.png", 1.5, 160 * f, 32 * f, 0, canvas.height - 32 * f);
+  bg.addLayer("../assets/bg/bottom.png", 1.7, 160 * f, 32 * f, 0, canvas.height - 32 * f);
+
+  let estados = {
+    correndo: {
+      frames: 8,
+      ticksFrame: 3,
+      sw: 23,
+      sh: 34,
+      dx: canvas.width  / 2 - 23 / 2 * 4,
+      dy: canvas.height - 32 * f * 2.4,
+      dw: 23 * 4,
+      dh: 34 * 4,
+      loop: true,
+      imgSRC: "../assets/run outline.png",
+      img: new Image(),
+    },
+  }
+
+  let personagem = new Sprite2d (context, estados);
+  personagem.estadoAtual = estados.correndo;
+  personagem.update = () => {};
 
   game.start();
 
