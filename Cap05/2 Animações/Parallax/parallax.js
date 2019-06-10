@@ -95,13 +95,15 @@ class BackgroundParallax extends GameObject {
 
   draw () {
     this.layers.forEach(layer => {
-      this.ctx.drawImage(layer.img, layer.x + layer.w-1, layer.y, layer.w, layer.h);
-      this.ctx.drawImage(layer.img, layer.x, layer.y, layer.w, layer.h);
+
       if (layer.x >= -layer.w) {
         layer.x -= layer.delta;
       } else {
-        layer.x += layer.w-2;
+        layer.x += layer.w-layer.delta;
       }
+
+      this.ctx.drawImage(layer.img, layer.x + layer.w-1, layer.y, layer.w, layer.h);
+      this.ctx.drawImage(layer.img, layer.x, layer.y, layer.w, layer.h);
     });
   }
 
@@ -130,7 +132,8 @@ window.onload = () => {
   bg.addLayer("../assets/bg/plx-3.png", .7, w, h, 0, 0);
   bg.addLayer("../assets/bg/plx-4.png", .9, w, h, 0, 0);
   bg.addLayer("../assets/bg/plx-5.png", 1.2, w, h, 0, 0);
-  bg.addLayer("../assets/bg/bottom.png", 1.7, 160 * f, 32 * f, 0, canvas.height - 32 * f);
+  bg.addLayer("../assets/bg/bottom.png", 1.7, 160 * f, 32 * f, 0,
+    canvas.height - 32 * f);
 
   let estados = {
     correndo: {
