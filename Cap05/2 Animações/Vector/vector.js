@@ -146,12 +146,13 @@ window.onload = () => {
   let context = canvas.getContext("2d");
   context.imageSmoothingEnabled = false;
 
-  let player = new Vector(20, canvas.width);
-  let vel    = new Vector(1.5, 0);
-  let jump   = new Vector(0, -1);
+  let player = new Vector(20, canvas.height);
+  let vel    = new Vector(2.5, 0);
+  let jump   = new Vector(0, -10);
+  let gravity = new Vector(0, 0.5);
   let jumping = false;
 
-  let obstaculo = new Vector(420, canvas.width);
+  let obstaculo = new Vector(420, canvas.height);
 
   function update() {
       requestAnimationFrame(update);
@@ -171,8 +172,20 @@ window.onload = () => {
         jump.set(0, 0);
       }
 
-      player.add(vel);
+      // gravity.set(0, 0);
+
       context.translate(-vel.x, 0);
+
+      vel.add(gravity);
+      player.add(vel);
+
+      if (player.y > canvas.height) {
+        vel.y *= 0;
+        player.y = canvas.height;
+        jump.set(0, -10);
+        jumping = false;
+      }
+
   }
 
   function clear() {
@@ -187,7 +200,7 @@ window.onload = () => {
     // Armazenar a tecla pressionada.
     var k = e.key;
 
-    if (k == ' ') {
+    if (k == ' ' && !jumping) {
       jumping = true;
     }
   }
