@@ -172,8 +172,6 @@ window.onload = () => {
         jump.set(0, 0);
       }
 
-      // gravity.set(0, 0);
-
       context.translate(-vel.x, 0);
 
       vel.add(gravity);
@@ -185,7 +183,6 @@ window.onload = () => {
         jump.set(0, -10);
         jumping = false;
       }
-
   }
 
   function clear() {
