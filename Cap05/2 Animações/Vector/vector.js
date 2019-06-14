@@ -120,6 +120,18 @@ class BackgroundParallax extends GameObject {
 
 }
 
+class Vector {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  add(vector) {
+    this.x += vector.x;
+    this.y += vector.y;
+  }
+}
+
 window.onload = () => {
 
   // Selecionando o elemento canvas
@@ -129,41 +141,38 @@ window.onload = () => {
   let context = canvas.getContext("2d");
   context.imageSmoothingEnabled = false;
 
-  let game = new Game({
-    canvas: canvas
-  });
+  let player = new Vector(20, canvas.width);
+  let vel    = new Vector(1.5, 0);
 
-  const f = 2.75,
-        w = 256 * f,
-        h = 176 * f;
+  let obstaculo = new Vector(220, canvas.width);
 
-  let bg = new BackgroundParallax(context);
-  bg.addLayer("../assets/bg/sky.png", 0, w, h, 0, 0);
+  function update() {
+      requestAnimationFrame(update);
+      clear();
 
-  let estados = {
-    andando: {
-      frames: 7,
-      ticksFrame: 6,
-      sw: 80,
-      sh: 64,
-      dx: 80,
-      dy: canvas.height - 64 * 2,
-      dw: 80 * 2,
-      dh: 64 * 2,
-      loop: true,
-      imgSRC: "../assets/bipedal-unit.png",
-      img: new Image(),
-    },
+      context.translate(-vel.x, 0);
+
+      // Definir uma cor ao desenho
+      context.fillStyle = "#9999cc";
+      // Desenhar um retângulo
+      context.fillRect(player.x, player.y - 60, 20, 60);
+
+      // Definir uma cor ao desenho
+      context.fillStyle = "#999966";
+      context.fillRect(obstaculo.x, obstaculo.y - 40, 20, 40);
+
+      player.add(vel);
   }
 
-  context.translate(-100, 0);
+  function clear() {
+    // context.translate(0, 0);
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    // Will always clear the right space
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.restore();
+  }
 
-  let personagem = new Sprite2d (context, estados);
-  personagem.estadoAtual = estados.andando;
-  personagem.update = () => {
-    estados.andando.dx++;
-  };
-
-  game.start();
+  update();
 
 }
