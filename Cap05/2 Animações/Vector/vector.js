@@ -130,6 +130,11 @@ class Vector {
     this.x += vector.x;
     this.y += vector.y;
   }
+
+  set(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
 window.onload = () => {
@@ -143,14 +148,14 @@ window.onload = () => {
 
   let player = new Vector(20, canvas.width);
   let vel    = new Vector(1.5, 0);
+  let jump   = new Vector(0, -1);
+  let jumping = false;
 
-  let obstaculo = new Vector(220, canvas.width);
+  let obstaculo = new Vector(420, canvas.width);
 
   function update() {
       requestAnimationFrame(update);
       clear();
-
-      context.translate(-vel.x, 0);
 
       // Definir uma cor ao desenho
       context.fillStyle = "#9999cc";
@@ -161,17 +166,33 @@ window.onload = () => {
       context.fillStyle = "#999966";
       context.fillRect(obstaculo.x, obstaculo.y - 40, 20, 40);
 
+      if (jumping) {
+        vel.add(jump);
+        jump.set(0, 0);
+      }
+
       player.add(vel);
+      context.translate(-vel.x, 0);
   }
 
   function clear() {
-    // context.translate(0, 0);
     context.save();
     context.setTransform(1, 0, 0, 1, 0, 0);
     // Will always clear the right space
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.restore();
   }
+
+  function keyPressed(e) {
+    // Armazenar a tecla pressionada.
+    var k = e.key;
+
+    if (k == ' ') {
+      jumping = true;
+    }
+  }
+
+  addEventListener("keydown", keyPressed);
 
   update();
 
