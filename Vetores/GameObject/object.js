@@ -25,12 +25,11 @@ class Game {
   }
 
   clear () {
-    //Game.ctx.translate(-1, 0);
-    //Game.ctx.save();
-    //Game.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    Game.ctx.save();
+    Game.ctx.setTransform(1, 0, 0, 1, 0, 0);
     // Will always clear the right space
     Game.ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
-    //Game.ctx.restore();
+    Game.ctx.restore();
   }
 
   static get limits () {
@@ -139,6 +138,8 @@ class PlayerObject extends GameObject {
     } else {
       this.moving = false;
     }
+
+    this.ctx2d.translate(-this.vel.x * .5, -this.vel.y * .5);
   }
 
   verifyEdges () {
@@ -228,7 +229,7 @@ class Vector {
   }
 }
 
-function createMap (map) {
+function createMap (map, canvas) {
   let posx = 0;
   let posy = 0;
   for (let i = 0; i < map.length; i++) {
@@ -239,6 +240,10 @@ function createMap (map) {
       posy += 20;
     } else posx += 20;
   }
+
+  // canvas.width  = map.length * 20;
+  // canvas.height = map.length * 20;
+
 }
 
 window.onload = () => {
@@ -255,19 +260,20 @@ window.onload = () => {
   });
 
   let gameMap = [
-    0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1,
-    0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-    0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1,
+    1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1,
+    1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1,
     1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1,
-    0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1,
-    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-    0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ];
 
-  createMap(gameMap);
+  createMap(gameMap, canvas);
 
-  let player1 = new PlayerObject (0, 0);
+  let player1 = new PlayerObject (20, 20);
   player1.colisionMap = gameMap;
 
   game.start();
