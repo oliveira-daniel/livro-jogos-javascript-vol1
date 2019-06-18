@@ -49,6 +49,35 @@ class Camera {
 
 Camera.SPEED = 50; // pixels per second
 
+//
+// Keyboard handler
+//
+const KeyCode = {
+  UP : 38,
+  DOWN : 40,
+}
+
+class Keyboard {
+
+  static listenForEvents () {
+    window.addEventListener("keydown", Keyboard.downEvent);
+    window.addEventListener("keyup", Keyboard.upEvent);
+  }
+
+  static downEvent (event) {
+    var keyCode = event.keyCode;
+    Keyboard._keys[keyCode] = true;
+  }
+
+  static upEvent (event) {
+    var keyCode = event.keyCode;
+    Keyboard._keys[keyCode] = false;
+  }
+
+}
+
+Keyboard._keys = new Array;
+
 class Game {}
 
 Game.start = function (canvasID) {
@@ -82,8 +111,10 @@ Game.tick = function (elapsed) {
 Game.update = function (delta) {
 
   // handle camera movement with arrow keys
-  var dirx = 1;
+  var dirx = 0;
   var diry = 0;
+
+  if (Keyboard._keys[KeyCode.DOWN]) { diry = 1; }
   this.camera.move(delta, dirx, diry);
 };
 
@@ -114,5 +145,7 @@ Game.render = function () {
 window.onload = () => {
 
   Game.start("game-canvas");
+
+  Keyboard.listenForEvents();
 
 }
