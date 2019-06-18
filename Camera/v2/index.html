@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Posicionando a Câmera em Jogos com JavaScript</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Neucha&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: #181811;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Neucha', cursive;
+        color: #7e7c5a;
+        font-weight: 300;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      h1 {
+        width: 450px;
+        height: 30px;
+        text-align: center;
+      }
+      canvas {
+        border: 2px solid #25251b;
+      }
+      label, input {
+        font-size: 25px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Posicionando Câmera</h1>
+
+    <!-- Observar o tamanho da canvas em relação ao tamanho dos tiles -->
+    <canvas id="game-canvas" width="315" height="315"></canvas>
+
+    <!-- importar o arquivo javascript contendo as instruções -->
+    <script src="camera_v2.js"></script>
+
+  </body>
+</html>
