@@ -55,6 +55,8 @@ Camera.SPEED = 50; // pixels per second
 const KeyCode = {
   UP : 38,
   DOWN : 40,
+  LEFT : 37,
+  RIGHT : 39
 }
 
 class Keyboard {
@@ -72,6 +74,10 @@ class Keyboard {
   static upEvent (event) {
     var keyCode = event.keyCode;
     Keyboard._keys[keyCode] = false;
+  }
+
+  static isDown (keyCode) {
+    return this._keys[keyCode];
   }
 
 }
@@ -113,8 +119,12 @@ Game.update = function (delta) {
   // handle camera movement with arrow keys
   var dirx = 0;
   var diry = 0;
+  var step = 2.5;
 
-  if (Keyboard._keys[KeyCode.DOWN]) { diry = 1; }
+  if (Keyboard.isDown(KeyCode.LEFT)) { dirx = -step; }
+  if (Keyboard.isDown(KeyCode.RIGHT)) { dirx = step; }
+  if (Keyboard.isDown(KeyCode.UP)) { diry = -step; }
+  if (Keyboard.isDown(KeyCode.DOWN)) { diry = step; }
   this.camera.move(delta, dirx, diry);
 };
 
