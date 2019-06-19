@@ -84,72 +84,73 @@ class Keyboard {
 Keyboard._keys = new Array;
 
 // Game class
-class Game {}
+class Game {
 
-Game.start = function (canvasID) {
-  this.canvas = document.getElementById(canvasID);
-  this.ctx = this.canvas.getContext('2d');
-  this.init();
-  requestAnimationFrame(this.tick);
-}
+  static start (canvasID) {
+    Game.canvas = document.getElementById(canvasID);
+    Game.ctx = this.canvas.getContext('2d');
+    Game.init();
+    requestAnimationFrame(this.tick);
+  }
 
-Game.init = function () {
-  this._previousElapsed = 0;
-  this.camera = new Camera(gameMap, 315, 315);
-}
+  static init () {
+    Game._previousElapsed = 0;
+    Game.camera = new Camera(gameMap, 315, 315);
+  }
 
-Game.tick = function (elapsed) {
-  window.requestAnimationFrame(this.tick);
+  static tick (elapsed) {
+    window.requestAnimationFrame(Game.tick);
 
-  // compute delta time in seconds -- also cap it
-  var delta = (elapsed - this._previousElapsed) / 1000.0;
-  delta = Math.min(delta, 0.25); // maximum delta of 250 ms
-  this._previousElapsed = elapsed;
+    // compute delta time in seconds -- also cap it
+    var delta = (elapsed - Game._previousElapsed) / 1000.0;
+    delta = Math.min(delta, 0.25); // maximum delta of 250 ms
+    Game._previousElapsed = elapsed;
 
-  // clear previous frame
-  this.ctx.clearRect(0, 0, 300, 300);
+    // clear previous frame
+    Game.ctx.clearRect(0, 0, 300, 300);
 
-  this.update(delta);
-  this.render();
+    Game.update(delta);
+    Game.render();
+  }
 
-}.bind(Game);
+  static update (delta) {
+    // handle camera movement with arrow keys
+    var dirx = 0;
+    var diry = 0;
+    var step = 2.5;
 
-Game.update = function (delta) {
+    if (Keyboard.isDown(KeyCode.LEFT)) { dirx = -step; }
+    if (Keyboard.isDown(KeyCode.RIGHT)) { dirx = step; }
+    if (Keyboard.isDown(KeyCode.UP)) { diry = -step; }
+    if (Keyboard.isDown(KeyCode.DOWN)) { diry = step; }
 
-  // handle camera movement with arrow keys
-  var dirx = 0;
-  var diry = 0;
-  var step = 2.5;
+    Game.camera.move(delta, dirx, diry);
+  }
 
-  if (Keyboard.isDown(KeyCode.LEFT)) { dirx = -step; }
-  if (Keyboard.isDown(KeyCode.RIGHT)) { dirx = step; }
-  if (Keyboard.isDown(KeyCode.UP)) { diry = -step; }
-  if (Keyboard.isDown(KeyCode.DOWN)) { diry = step; }
-  this.camera.move(delta, dirx, diry);
-};
+  static render () {
+    var startCol = Math.floor(Game.camera.x / gameMap.tsize);
+    var endCol = startCol + (Game.camera.width / gameMap.tsize);
+    var startRow = Math.floor(Game.camera.y / gameMap.tsize);
+    var endRow = startRow + (Game.camera.height / gameMap.tsize);
+    var offsetX = -Game.camera.x + startCol * gameMap.tsize;
+    var offsetY = -Game.camera.y + startRow * gameMap.tsize;
 
-Game.render = function () {
-  var startCol = Math.floor(this.camera.x / gameMap.tsize);
-  var endCol = startCol + (this.camera.width / gameMap.tsize);
-  var startRow = Math.floor(this.camera.y / gameMap.tsize);
-  var endRow = startRow + (this.camera.height / gameMap.tsize);
-  var offsetX = -this.camera.x + startCol * gameMap.tsize;
-  var offsetY = -this.camera.y + startRow * gameMap.tsize;
-
-  for (var c = startCol; c <= endCol; c++) {
-    for (var r = startRow; r <= endRow; r++) {
-      var tile = gameMap.getTile(c, r);
-      var x = (c - startCol) * gameMap.tsize + offsetX;
-      var y = (r - startRow) * gameMap.tsize + offsetY;
-      if (tile !== 0) { // 0 => empty tile
-        this.ctx.fillStyle = "#6699cc";
-      } else {
-        this.ctx.fillStyle = "#3333cc";
+    for (var c = startCol; c <= endCol; c++) {
+      for (var r = startRow; r <= endRow; r++) {
+        var tile = gameMap.getTile(c, r);
+        var x = (c - startCol) * gameMap.tsize + offsetX;
+        var y = (r - startRow) * gameMap.tsize + offsetY;
+        if (tile !== 0) { // 0 => empty tile
+          this.ctx.fillStyle = "#6699cc";
+        } else {
+          this.ctx.fillStyle = "#3333cc";
+        }
+        // Desenhar um retângulo
+        Game.ctx.fillRect(Math.round(x), Math.round(y), gameMap.tsize, gameMap.tsize);
       }
-      // Desenhar um retângulo
-      this.ctx.fillRect(Math.round(x), Math.round(y), gameMap.tsize, gameMap.tsize);
     }
   }
+
 }
 
 window.onload = () => {
