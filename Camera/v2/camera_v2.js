@@ -23,6 +23,7 @@ let gameMap = {
   }
 };
 
+// Camera handler
 class Camera {
 
   constructor (map, width, height) {
@@ -49,9 +50,7 @@ class Camera {
 
 Camera.SPEED = 50; // pixels per second
 
-//
 // Keyboard handler
-//
 const KeyCode = {
   UP : 38,
   DOWN : 40,
@@ -84,6 +83,7 @@ class Keyboard {
 
 Keyboard._keys = new Array;
 
+// Game class
 class Game {}
 
 Game.start = function (canvasID) {
