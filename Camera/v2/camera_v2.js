@@ -1,5 +1,4 @@
-
-
+// Game map definitions
 let gameMap = {
   map: [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -29,7 +28,7 @@ class Camera {
   constructor (map, width, height) {
     this.x = 0;
     this.y = 0;
-    this.width = width;
+    this.width  = width;
     this.height = height;
     this.maxX = map.cols * map.tsize - width;
     this.maxY = map.rows * map.tsize - height;
@@ -42,8 +41,6 @@ class Camera {
     // clamp values
     this.x = Math.max(0, Math.min(this.x, this.maxX));
     this.y = Math.max(0, Math.min(this.y, this.maxY));
-
-    // console.log("Camera interagindo", this.x);
   }
 
 }
@@ -61,6 +58,7 @@ const KeyCode = {
 class Keyboard {
 
   static listenForEvents () {
+    Keyboard._keys = new Array;
     window.addEventListener("keydown", Keyboard.downEvent);
     window.addEventListener("keyup", Keyboard.upEvent);
   }
@@ -81,8 +79,6 @@ class Keyboard {
 
 }
 
-Keyboard._keys = new Array;
-
 // Game class
 class Game {
 
@@ -90,7 +86,7 @@ class Game {
     Game.canvas = document.getElementById(canvasID);
     Game.ctx = this.canvas.getContext('2d');
     Game.init();
-    requestAnimationFrame(this.tick);
+    requestAnimationFrame(Game.tick);
   }
 
   static init () {
